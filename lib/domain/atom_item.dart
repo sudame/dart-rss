@@ -2,6 +2,7 @@ import 'package:dart_rss/domain/atom_category.dart';
 import 'package:dart_rss/domain/atom_link.dart';
 import 'package:dart_rss/domain/atom_person.dart';
 import 'package:dart_rss/domain/atom_source.dart';
+import 'package:dart_rss/domain/geo/geo.dart';
 import 'package:dart_rss/domain/media/media.dart';
 import 'package:dart_rss/util/helpers.dart';
 import 'package:xml/xml.dart';
@@ -21,6 +22,7 @@ class AtomItem {
   final String? summary;
   final String? rights;
   final Media? media;
+  final Geo? geo;
 
   const AtomItem({
     this.id,
@@ -36,6 +38,7 @@ class AtomItem {
     this.summary,
     this.rights,
     this.media,
+    this.geo,
   });
 
   factory AtomItem.parse(XmlElement element) {
@@ -65,6 +68,7 @@ class AtomItem {
       summary: findElementOrNull(element, 'summary')?.text,
       rights: findElementOrNull(element, 'rights')?.text,
       media: Media.parse(element),
+      geo: Geo.parse(element),
     );
   }
 }
